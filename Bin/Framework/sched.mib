@@ -1,0 +1,108 @@
+--
+-- MIB defining trap sent by Teradata ETL scheduler - parsing result
+--
+-- Version: 10.03.2016
+-- 
+TERADATA-SCHEDULER-TRAP-MIB DEFINITIONS ::= BEGIN
+	
+IMPORTS
+enterprises, DisplayString FROM RFC1155-SMI
+OBJECT-TYPE	FROM RFC-1212;
+
+TERADATA                OBJECT IDENTIFIER ::= {enterprises 191}
+teradata-develop        OBJECT IDENTIFIER ::= {TERADATA 103}
+sched-data           OBJECT IDENTIFIER ::= {teradata-develop 0}
+sched-variables      OBJECT IDENTIFIER ::= {sched-data 2}
+sched-trap-var 		 OBJECT IDENTIFIER ::= {sched-variables 1}
+
+Log_Event_ID OBJECT-TYPE
+        SYNTAX  DisplayString
+        ACCESS  read-only
+        STATUS  optional
+        DESCRIPTION "Load Date."
+        ::= {sched-trap-var 1}
+
+Error_CD OBJECT-TYPE
+        SYNTAX  DisplayString
+        ACCESS  read-only
+        STATUS  optional
+        DESCRIPTION "Error Code."
+        ::= {sched-trap-var 2}
+
+Job_Name OBJECT-TYPE
+        SYNTAX  DisplayString
+        ACCESS  read-only
+        STATUS  optional
+        DESCRIPTION "Name of the job."
+        ::= {sched-trap-var 3}
+
+Job_ID OBJECT-TYPE
+        SYNTAX  DisplayString
+        ACCESS  read-only
+        STATUS  optional
+        DESCRIPTION "Job identification."
+        ::= {sched-trap-var 4}
+
+Severity OBJECT-TYPE
+        SYNTAX  DisplayString
+        ACCESS  read-only
+        STATUS  optional
+        DESCRIPTION "Severity of event."
+        ::= {sched-trap-var 5}
+
+Notification_Type_CD OBJECT-TYPE
+        SYNTAX  DisplayString
+        ACCESS  read-only
+        STATUS  optional
+        DESCRIPTION "Chanel which is used for notification."
+        ::= {sched-trap-var 6}
+
+Event_Ds OBJECT-TYPE
+        SYNTAX  DisplayString
+        ACCESS  read-only
+        STATUS  optional
+        DESCRIPTION "Description of event."
+        ::= {sched-trap-var 7}
+
+Recommendation_Ds OBJECT-TYPE
+        SYNTAX  DisplayString
+        ACCESS  read-only
+        STATUS  optional
+        DESCRIPTION "Recommendation."
+        ::= {sched-trap-var 8}
+
+Note OBJECT-TYPE
+        SYNTAX  DisplayString
+        ACCESS  read-only
+        STATUS  optional
+        DESCRIPTION "Note to description or recommendation."
+        ::= {sched-trap-var 9}
+
+Detected_TS OBJECT-TYPE
+        SYNTAX  DisplayString
+        ACCESS  read-only
+        STATUS  optional
+        DESCRIPTION "Timestamp when event was detected."
+        ::= {sched-trap-var 10}
+
+Engine_Name OBJECT-TYPE
+        SYNTAX  DisplayString
+        ACCESS  read-only
+        STATUS  optional
+        DESCRIPTION "Engine Name."
+        ::= {sched-trap-var 11}
+
+System_Name OBJECT-TYPE
+        SYNTAX  DisplayString
+        ACCESS  read-only
+        STATUS  optional
+        DESCRIPTION "System Name."
+        ::= {sched-trap-var 12}
+
+TeradataSchedParsing                TRAP-TYPE
+        ENTERPRISE sched-variables
+        VARIABLES { Log_Event_ID, Error_CD, Job_Name, Job_ID, Severity, Notification_Type_CD, Event_Ds, Recommendation_Ds, Note, Detected_TS, Engine_Name, System_Name }
+        DESCRIPTION "The scheduler event."
+        ::= 1
+
+END
